@@ -48,7 +48,7 @@ COPY rabbitmq-env.conf /etc/rabbitmq/rabbitmq-env.conf
 COPY rabbitmq.config /etc/rabbitmq/
 COPY entrypoint.sh /root/
 COPY supervisord.conf /root/
-RUN chmod +x entrypoint.sh
+RUN chmod +x /root/entrypoint.sh
 RUN mkdir /var/log/opcua/
 RUN touch /var/log/opcua/opcua_converter.log
 RUN git clone https://github.com/intel/Converter-for-OPCUA.git

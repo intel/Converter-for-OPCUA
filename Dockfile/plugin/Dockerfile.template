@@ -51,6 +51,7 @@ RUN pip install supervisor==3.3.4
 COPY entrypoint.sh /root/
 COPY supervisord_plugin.conf /root/supervisord.conf
 RUN mkdir /var/log/opcua/
+RUN chmod +x /root/entrypoint.sh
 
 # CUSTOMIZE: touch relate log file to avoid log file fail to create, e.g. "RUN touch /var/log/opcua/<plugin log file>"
 
