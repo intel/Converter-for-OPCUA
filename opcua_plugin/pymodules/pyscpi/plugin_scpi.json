@@ -1,0 +1,80 @@
+{
+	"di":"SCPI",
+	"st":"OPCUA",
+	"version":"1.0.2",
+	"status":"on",
+	"links":[],
+	"user_data":
+	{
+		"name":"ScpiPlugin",
+		"topic":"req/ScpiPlugin",
+		"apilist":[
+			{"name": "getrd", "output": ["String"]},
+			{"name": "ping", "output": ["String"]},
+			{
+				"name": "getstate",
+				"input": [{"type": "String", "default": null}],
+				"output": ["String"]
+			},
+			{"name": "refresh", "output": ["String"]}
+		],
+		"opcua":
+		{
+			"endpoint_path":"opc.tcp://0.0.0.0:4840/freeopcua/server/",
+			"uri_name":"http://examples.freeopcua.github.io",
+			"broker_path":"/proxy/ScpiPlugin",
+			"custom_types":
+			[
+				{ 
+					"name":"ScpiDeviceType"
+				}
+			],
+			"folders":
+			[
+				{
+					"name":"ScpiPlugin",
+					"ScpiDeviceType":
+					[
+						{
+							"name":"SCPI",
+							"properties":
+							[
+								{
+									 "name":"NamespaceUri",
+									 "value":"http://yourorganisation.org/SCPI/"
+								}
+							]
+						}
+					],
+					"methods":
+					[
+						{
+							 "name":"open",
+							 "rpc_name":"open",
+							 "input":[{"name":"link","type":"String"}, {"name":"setting","type":"String", "default": null}],
+							 "output":["String"]
+						},
+						{
+							 "name":"close",
+							 "rpc_name":"close",
+							 "input":[{"name":"link","type":"String"}],
+							 "output":["String"]
+						},
+						{
+							 "name":"state",
+							 "rpc_name":"state",
+							 "input":[{"name":"link","type":"String"}],
+							 "output":[{"name":"link","type":"String"}, {"name":"status","type":"String"}]
+						},
+						{
+							 "name":"send",
+							 "rpc_name":"send",
+							 "input":[ {"name":"link","type":"String"}, {"name":"data","type":"String"}],
+							 "output":["String"]
+						}
+					]
+				}
+			]
+		}
+    }
+}            

@@ -1,0 +1,74 @@
+{
+  "di":"SCPI",
+  "st":"OPCUA",
+  "version":"1.0.2",
+  "status":"on",
+  "links":[],
+  "user_data":
+  {
+    "name":"KvPlugin",
+    "topic":"req/KvPlugin",
+    "apilist":[
+      {"name": "getrd", "output": ["String"]},
+      {"name": "ping", "output": ["String"]},
+      {
+        "name": "getstate",
+        "input": [{"type": "String", "default": null}],
+        "output": ["String"]
+      },
+      {"name": "refresh", "output": ["String"]}
+    ],
+    "opcua":
+    {
+      "endpoint_path":"opc.tcp://0.0.0.0:4840/freeopcua/server/",
+      "uri_name":"http://examples.freeopcua.github.io",
+      "broker_path":"/proxy/ScpiPlugin",
+      "custom_types":
+      [
+        {
+          "name":"KvDBType"
+        }
+      ],
+      "folders":
+      [
+        {
+          "name":"KvPlugin",
+          "KvDBType":
+          [
+            {
+              "name":"KvDB",
+              "properties":
+              [
+                {
+                  "name":"DBFileFolder",
+                  "value":"leveldb"
+                }
+              ]
+            }
+          ],
+          "methods":
+          [
+            {
+              "name":"put",
+              "rpc_name":"put",
+              "input":[{"name":"key","type":"String"}, {"name":"value","type":"String"}],
+              "output":["String"]
+            },
+            {
+              "name":"get",
+              "rpc_name":"get",
+              "input":[{"name":"key","type":"String"}],
+              "output":["String"]
+            },
+            {
+              "name":"delete",
+              "rpc_name":"delete",
+              "input":[{"name":"key","type":"String"}],
+              "output":["String"]
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

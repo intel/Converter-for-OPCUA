@@ -1,0 +1,58 @@
+This project includes software developed from 3rd-party vendors:
+
+Free OpcUa
+	http://freeopcua.github.io
+	GNU Lesser General Public License v3.0 only
+
+JSON-C
+	http://www.json.org
+	MIT License
+
+Trac - Integrated SCM & Project Management
+	https://trac.edgewall.org/
+	BSD 3-clause "New" or "Revised" License
+
+amqp-storm
+	https://www.amqpstorm.io
+	MIT License
+
+configparser
+	https://docs.python.org/3.5/library/configparser.html
+	MIT License
+
+cryptography
+	https://cryptography.io/en/latest
+	Apache License 2.0
+
+enum34
+	https://bitbucket.org/stoneleaf/enum34
+	BSD 3-clause "New" or "Revised" License
+
+mongo-python-driver
+	https://docs.mongodb.com/ecosystem/drivers/python
+	Apache License 2.0
+
+pymodbus
+	https://pymodbus.readthedocs.io/en/latest
+	BSD 3-clause "New" or "Revised" License
+
+pypi
+	https://pypi.org
+	Eclipse Public License 1.0
+
+paho-mqtt
+	http://mqtt.org/tag/paho
+	Eclipse Public License 1.0
+
+pyserial
+	https://pythonhosted.org/pyserial
+	BSD 3-clause "New" or "Revised" License
+
+rabbitmq-c
+	http://www.rabbitmq.com/devtools.html
+	MIT License
+
+safestringlib
+        https://github.com/intel/safestringlib
+        MIT License
+
