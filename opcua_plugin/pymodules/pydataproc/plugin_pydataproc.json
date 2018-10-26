@@ -1,0 +1,63 @@
+{
+	"di":"LOGFILE",
+	"st":"OPCUA",
+	"version":"1.0.2",
+	"status":"on",
+	"links":[],
+	"user_data":
+	{
+		"name":"DataProcPlugin",
+		"topic":"req/DataProcPlugin",
+		"apilist":
+		[
+			{"name": "getrd", "output": ["String"]},
+			{"name": "ping", "output": ["String"]}
+		],
+		"opcua":
+		{
+			"endpoint_path":"opc.tcp://0.0.0.0:4840/freeopcua/server/",
+			"uri_name":"http://examples.freeopcua.github.io",
+			"broker_path":"/proxy/DataProcPlugin",
+			"folders":
+			[
+				{ 
+					"name":"DataProcPlugin",
+					"properties":
+					[
+						{
+							"name": "source_topic",
+							"value": "source_test"
+						},
+						{
+							"name": "sink_topic",
+							"value": "sink_test"
+						},
+                        {
+                            "name": "udf_enabled",
+							"value": "yes"
+                        },
+						{
+							"name": "udf_file",
+							"value": "udf_simple.py"
+						}
+					],
+					"methods":
+					[
+						{
+							 "name":"set_udf_file",
+							 "rpc_name":"set_udf_file",
+							 "input":["String"],
+							 "output":["String"]
+						},
+						{
+							 "name":"set_udf_enabled",
+							 "rpc_name":"set_udf_enabled",
+                             "input":["String"],
+							 "output":["String"]
+						}
+					]
+				}
+			]
+		}
+	}
+}

@@ -1,0 +1,154 @@
+{
+	"di":"MODBUS",
+	"st":"OPCUA",
+	"version":"1.0.2",
+	"status":"on",
+	"links":[],
+	"user_data":
+	{
+		"name":"ModbusPlugin-RTU",
+		"topic":"req/ModbusPlugin-RTU",
+		"apilist":[
+			{"name": "getrd", "output": ["String"]},
+			{"name": "ping", "output": ["String"]}
+		],
+		"opcua":
+		{
+			"endpoint_path":"opc.tcp://0.0.0.0:4840/freeopcua/server/",
+			"uri_name":"http://examples.freeopcua.github.io",
+			"broker_path":"/proxy/ModbusPlugin-RTU",
+			"custom_types":
+			[
+				{
+					"name":"ModbusDeviceType",
+					"variables":
+					[
+						{
+							 "name":"coils",
+							 "writable":"yes",
+							 "historizing":
+							 {
+								"period": 2,
+								"count":300
+							 }
+						},
+						{
+							 "name":"discrete_inputs",
+							 "writable":"no"
+						},
+						{
+							 "name":"holding_registers",
+							 "writable":"yes"
+						},
+						{
+							 "name":"input_registers",
+							 "writable":"no"
+						}
+					]
+				}
+			],
+			"folders":
+			[
+				{
+					"name":"ModbusPlugin-RTU",
+					"ModbusDeviceType":
+					[
+						{
+							"name":"Serial - 1",
+							"properties":
+							[
+								{
+									"name":"device address",
+									"value":"/dev/pts/17"
+								},
+								{
+									"name":"baudrate",
+									"value":"115200"
+								},
+								{
+									"name":"period",
+									"value":10
+								},
+								{
+									"name":"server id",
+									"value":17
+								},
+								{
+									"name":"valid coils",
+									"refs":"coils",
+									"value": ["1", "2", "3", "5", "6", "7", "8","9","10","18","19","22","66", "61","80","88"]
+								},
+								{
+									"name":"valid holding registers",
+									"refs":"holding_registers",
+									"value": ["22","21","22","23","50", "51", "52", "67", "78","79","80","81","82","97","98","99"]
+								}
+							]
+						},
+						{
+							"name":"Serial - 2",
+							"properties":
+							[
+								{
+									"name":"device address",
+									"value":"/dev/ttyUSB1"
+								}
+							]
+						}
+					],
+					"methods":
+					[
+						{
+							 "name":"connect",
+							 "rpc_name":"connect",
+							 "input":["String"],
+							 "output":["String"]
+						},
+						{
+							 "name":"disconnect",
+							 "rpc_name":"disconnect",
+							 "input":["String"],
+							 "output":["String"]
+						},
+						{
+							 "name":"write_coil",
+							 "rpc_name":"write_coil",
+							 "input":["String", "String", "String"],
+							 "output":["String"]
+						},
+						{
+							 "name":"read_coils",
+							 "rpc_name":"read_coils",
+							 "input":["String", "String", "String"],
+							 "output":["String"]
+						},
+						{
+							 "name":"read_discrete_inputs",
+							 "rpc_name":"read_discrete_inputs",
+							 "input":["String", "String", "String"],
+							 "output":["String"]
+						},
+						{
+							 "name":"write_register",
+							 "rpc_name":"write_register",
+							 "input":["String", "String", "String"],
+							 "output":["String"]
+						},
+						{
+							 "name":"read_holding_registers",
+							 "rpc_name":"read_holding_registers",
+							 "input":["String", "String", "String"],
+							 "output":["String"]
+						},
+						{
+							 "name":"read_input_registers",
+							 "rpc_name":"read_input_registers",
+							 "input":["String", "String", "String"],
+							 "output":["String"]
+						}
+					]
+				}
+			]
+		}
+	}
+}

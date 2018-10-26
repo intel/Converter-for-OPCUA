@@ -1,0 +1,79 @@
+{
+	"di":"OCR",
+	"st":"OPCUA",
+	"version":"1.0.2",
+	"status":"on",
+	"links":[],
+	"user_data":
+	{
+		"name":"HDPlugin",
+		"topic":"req/HDPlugin",
+		"apilist":[
+			{"name": "getrd", "output": ["String"]},
+			{"name": "ping", "output": ["String"]},
+			{
+				"name": "getstate",
+				"input": [{"type": "String", "default": null}],
+				"output": ["String"]
+			},
+			{"name": "download", "input": ["String", "String"], "output": ["String"]},
+			{"name": "refresh", "output": ["String"]}
+		],
+		"opcua":
+		{
+			"endpoint_path":"opc.tcp://0.0.0.0:4840/freeopcua/server/",
+			"uri_name":"http://examples.freeopcua.github.io",
+			"broker_path":"/proxy/OcrPlugin",
+			"custom_types":
+			[
+				{
+					"name":"OcrDataType",
+					"variables":
+					[
+						{
+							"name":"detected",
+							"historizing":
+							{
+								"period": 1,
+								"count":300
+							},
+							"writable":"no"
+						}
+					]
+				}
+			],
+			"folders":
+			[
+				{
+					"name":"HDPlugin",
+					"OcrDataType":
+					[
+						{
+							"name": "Camera0",
+							"properties":
+							[
+								{
+									"name":"id",
+									"value":0,
+									"refs": "detected"
+								},
+								{
+									"name":"width",
+									"value":800
+								},
+								{
+									"name":"height",
+									"value":600
+								},
+								{
+									"name":"period",
+									"value":1
+								}
+							]
+						}
+					]
+				}
+			]
+		}
+	}
+}

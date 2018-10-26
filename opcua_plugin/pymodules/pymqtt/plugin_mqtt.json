@@ -1,0 +1,175 @@
+{
+	"di":"MQTT",
+	"st":"OPCUA",
+	"version":"1.0.2",
+	"status":"on",
+	"links":[],
+	"user_data":
+	{
+		"name":"MqttPlugin",
+		"topic":"req/MqttPlugin",
+		"apilist":[
+			{"name": "getrd", "output": ["String"]},
+			{"name": "ping", "output": ["String"]},
+			{
+				"name": "getstate",
+				"input": [{"type": "String", "default": null}],
+				"output": ["String"]
+			},
+                        {
+				"name": "send",
+				"input": ["String", "String", "String"],
+				"output": ["String"]
+			},
+			{"name": "refresh", "output": ["String"]}
+		],
+		"opcua":
+		{
+			"endpoint_path":"opc.tcp://0.0.0.0:4840/freeopcua/server/",
+			"uri_name":"http://examples.freeopcua.github.io",
+			"broker_path":"/proxy/MqttPlugin",
+			"custom_types":
+			[
+				{
+					"name":"MqttVendor0Type",
+					"variables":
+					[
+						{
+							"name":"Raw Data",
+							"type":"String",
+							"historizing": 
+							{
+								"period": 2, 
+								"count":300
+							},
+							"writable":"no"
+						},
+						{
+							"name":"Alarm",
+							"type":"String",
+							"historizing":
+							{
+								"period": 2, 
+								"count":300
+							},
+							"writable":"no"
+						}
+					]
+				},
+				{
+					"name":"MqttVendor1Type",
+					"variables":
+					[
+						{
+							"name":"Data Format",
+							"writable":"no"
+						},
+						{
+							"name":"Event Format",
+							"writable":"no"
+						},
+						{
+							"name":"Alarm Event",
+							"writable":"no"
+						},
+						{
+							"name":"Raw Data",
+							"writable":"no"
+						}
+					]
+				}
+			],
+			"folders":
+			[
+				{ 
+					"name":"MqttPlugin",
+					"folders":
+					[
+						{
+							"name": "DeviceType#0",
+							"MqttVendor0Type": [
+								{
+									"name": "Device#0",
+									"properties": [
+										{
+											"name": "MQTT Broker",
+											"value": {
+													"host": "127.0.0.1",
+													"port": "1883"
+										    }
+										},
+										{
+											"name": "Raw Topic",
+											"refs": "Raw Data",
+											"value": "proj_1/gw_1/raw0"
+										},
+										{
+											"name": "Alam Topic",
+											"refs": "Alarm",
+											"value": "proj_1/gw_1/alm0"
+										}
+									]
+								},
+								{
+									"name": "Device#1",
+									"properties": [
+										{
+											"name": "MQTT Broker",
+											"value": {
+													"host": "127.0.0.1",
+													"port": "8883",
+                                                                                                        "cafile": "mqttkey/ca.crt",
+                                                                                                        "cert": "mqttkey/client.crt",
+                                                                                                        "key": "mqttkey/client.key"
+										    }
+										},
+										{
+											"name": "Raw Topic",
+											"refs": "Raw Data",
+											"value": "proj_1/gw_1/raw1"
+										},
+										{
+											"name": "Alam Topic",
+											"refs": "Alarm",
+											"value": "proj_1/gw_1/alm1"
+										}
+									]
+								},
+								{
+									"name": "Device#2",
+									"properties": [
+										{
+											"name": "MQTT Broker",
+											"value": {
+													"host": "127.0.0.1",
+													"port": "1883"
+										    }
+										},
+										{
+											"name": "Blob Topic",
+											"value": "proj_1/gw_1/blob0"
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "DeviceType#1",
+							"MqttVendor1Type": [
+								{
+									"name": "Device#X"
+								},
+								{
+									"name": "Device#Y"
+								},
+								{
+									"name": "Device#Z"
+								}
+							]
+						}
+					]
+				}
+			]				
+		}
+	}
+}			 

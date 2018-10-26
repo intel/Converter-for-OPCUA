@@ -1,0 +1,96 @@
+{
+	"di":"OPC",
+	"st":"OPCUA",
+	"version":"1.0.2",
+	"status":"on",
+	"links":[],
+	"user_data":
+	{
+		"name":"OpcPlugin",
+		"topic":"req/OpcPlugin",
+		"apilist":[
+			{"name": "getrd", "output": ["String"]},
+			{"name": "ping", "output": ["String"]},
+			{
+				"name": "getstate",
+				"input": [{"type": "String", "default": null}],
+				"output": ["String"]
+			},
+			{"name": "refresh", "output": ["String"]}
+		],
+		"opcua":
+		{
+			"endpoint_path":"opc.tcp://0.0.0.0:4840/freeopcua/server/",
+			"uri_name":"http://examples.freeopcua.github.io",
+			"broker_path":"/proxy/OpcPlugin",
+			"custom_types":
+			[
+				{
+					"name":"OpcDataType",
+					"variables":
+					[
+						{
+							"name":"Random.Int4.Result",
+							"writable":"yes"
+						},
+						{
+							"name": "property",
+							"writable":"no"
+						}
+					]
+				}
+			],
+			"folders":
+			[
+				{
+					"name":"OpcPlugin",
+					"OpcDataType":
+					[
+						{
+							"name": "OpcServer#0",
+							"properties":
+							[
+								{
+									"name":"server address",
+									"value":"127.0.0.1"
+								},
+								{
+									"name":"period",
+									"value":10
+								},
+								{
+									"name":"server name",
+									"value":"Matrikon.OPC.Simulation.1"
+								},
+								{
+									"name":"protocol",
+									"value":"DCOM"
+								},
+								{
+									"name":"tag",
+									"refs":"Random.Int4.Result",
+									"value":"Random.Int4"
+								}
+							]
+						}
+					],
+					"methods":
+					[
+						{
+							 "name":"read",
+							 "rpc_name":"read",
+							 "input":["String"],
+							 "output":["String"]
+						},
+						{
+							 "name":"write",
+							 "rpc_name":"write",
+							 "input":["String", "String"],
+							 "output":["String"]
+						}
+					]
+				}
+			]
+		}
+	}
+}
