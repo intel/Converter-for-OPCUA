@@ -1,0 +1,78 @@
+{
+	"di":"FILEREC",
+	"st":"OPCUA",
+	"version":"1.0.2",
+	"status":"on",
+	"links":[],
+	"user_data":
+	{
+		"name":"FileReceiverFactory",
+		"topic":"req/FileReceiverFactory",
+		"apilist":[
+			{"name": "getrd", "output": ["String"]}
+		],
+		"opcua":
+		{
+			"endpoint_path":"opc.tcp://0.0.0.0:4840/freeopcua/server/",
+			"uri_name":"http://examples.freeopcua.github.io",
+			"broker_path":"/proxy/FileReceiverFactory",
+			"custom_types":
+			[
+				{
+					"name":"MqttVendor0Type",
+					"variables":
+					[
+						{
+							"name":"Raw Data",
+							"type":"Dict",
+							"historizing":
+							{
+								"period": 2,
+								"count":300
+							},
+							"writable":"no"
+						}
+					]
+				}
+			],
+			"folders":
+			[
+				{
+   					"name":"FileReceiverFactory",
+					"MqttVendor0Type":
+					[
+						{
+						    "name": "Device#0",
+							"properties": [
+								{
+									"name": "Mqtt Broker",
+									"value": {
+											"host": "127.0.0.1",
+											"port": "1883"
+								    }
+								},
+								{
+									"name": "Mqtt Topic",
+									"refs": "Raw Data",
+									"value": "proj_1/gw_1/raw0"
+								},
+								{
+									"name": "Image Folder",
+									"value": "./images/"
+								}
+							],
+							"methods": [
+								{
+									 "name":"fread",
+									 "rpc_name":"fread",
+									 "input":["String"],
+									 "output":["String"]
+								}
+							]
+						}
+					]
+				}
+			]
+		}
+	}
+}

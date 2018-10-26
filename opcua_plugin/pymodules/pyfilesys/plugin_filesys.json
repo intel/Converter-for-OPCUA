@@ -1,0 +1,51 @@
+{
+	"di":"FILESYS",
+	"st":"OPCUA",
+	"version":"1.0.2",
+	"status":"on",
+	"links":[],
+	"user_data":
+	{
+		"name":"FileSysPlugin",
+		"topic":"req/FileSysPlugin",
+		"apilist":
+		[
+			{"name": "getrd", "output": ["String"]},
+			{"name": "ping", "output": ["String"]}
+		],
+		"opcua":
+		{
+			"endpoint_path":"opc.tcp://0.0.0.0:4840/freeopcua/server/",
+			"uri_name":"http://examples.freeopcua.github.io",
+			"broker_path":"/proxy/FileSysPlugin",
+			"folders":
+			[
+				{ 
+					"name":"FileSysPlugin",
+					"properties":
+					[
+						{
+							"name": "folder",
+							"value": "./images/"
+						}
+					],
+					"methods":
+					[
+						{
+							 "name":"fread",
+							 "rpc_name":"fread",
+							 "input":["String"],
+							 "output":["String"]
+						},
+						{
+							 "name":"fwrite",
+							 "rpc_name":"fwrite",
+							 "input":["String", "String"],
+							 "output":["String"]
+						}
+					]
+				}
+			]
+		}
+	}
+}			 

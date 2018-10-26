@@ -1,0 +1,66 @@
+{
+  "di":"SCPI",
+  "st":"OPCUA",
+  "version":"1.0.2",
+  "status":"on",
+  "links":[],
+  "user_data":
+  {
+    "name":"ManagerPlugin",
+    "topic":"req/ManagerPlugin",
+    "apilist":[
+      {"name": "getrd", "output": ["String"]},
+      {"name": "ping", "output": ["String"]},
+      {
+        "name": "getstate",
+        "input": [{"type": "String", "default": null}],
+        "output": ["String"]
+      }
+    ],
+    "opcua":
+    {
+      "endpoint_path":"opc.tcp://0.0.0.0:4840/freeopcua/server/",
+      "uri_name":"http://examples.freeopcua.github.io",
+      "broker_path":"/proxy/ManagerPlugin",
+      "folders":
+      [
+        {
+          "name":"ManagerPlugin",
+          "methods":
+          [
+            {
+              "name":"get_plugin_list",
+              "rpc_name":"get_plugin_list",
+              "input":[],
+              "output":["String"]
+            },
+            {
+              "name":"start_plugin",
+              "rpc_name":"start_plugin",
+              "input":[{"name":"name","type":"String"}],
+              "output":["String"]
+            },
+            {
+              "name":"stop_plugin",
+              "rpc_name":"stop_plugin",
+              "input":[{"name":"name","type":"String"}],
+              "output":["String"]
+            },
+            {
+              "name":"getcfg",
+              "rpc_name":"getcfg",
+              "input":[{"name":"name","type":"String"}, {"name":"cfg_type","type":"String"}],
+              "output":["String"]
+            },
+            {
+              "name":"setcfg",
+              "rpc_name":"setcfg",
+              "input":[{"name":"name","type":"String"}, {"name":"cfg_type","type":"String"}, {"name":"cfg_type","type":"String"}],
+              "output":["String"]
+            }
+          ]
+        }
+      ]
+    }
+  }
+}
