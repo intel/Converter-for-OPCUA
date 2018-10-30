@@ -76,7 +76,7 @@ A plugin consists of two configuration files:
 
 2. Configururation file (.conf) for information, security and connection information.
 
-Please refer to [Plugin Configuration](plugin_configuration) for details.
+Please refer to [Plugin Configuration](plugin_configuration.md) for details.
 
 ## Developing Plugins
 
