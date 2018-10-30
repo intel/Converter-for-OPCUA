@@ -25,7 +25,7 @@ Firstly, run the management program to start Plugin Manager:
 $ python3 pyutilities/serve/standalone.py
 ```
 Plguin Manager provides a standard OPC-UA interface to manage plugins. The plugin can be controlled by calling the corresponding API interface, such as starting or stopping etc. You can use any OPC-UA client to access those interfaces such as [opcua-client-gui](https://github.com/FreeOpcUa/opcua-client-gui).
-We also provide a [Console](docs/console.md) tool  that allows you to control plugins quickly.
+We also provide a [Console](console.md) tool  that allows you to control plugins quickly.
 To start the built-in pymqtt plugin using the console tool:
 
 ```bash
@@ -42,7 +42,7 @@ When you start, you will see the above message. Then start the plugin:
 OK
 ```
 
-Please check [Console](docs/console.md) for usages.
+Please check [Console](console.md) for usages.
 
 ### Building and Running C Plugins
 
@@ -76,7 +76,7 @@ A plugin consists of two configuration files:
 
 2. Configururation file (.conf) for information, security and connection information.
 
-Please refer to [Plugin Configuration](plugin_configuration) for details.
+Please refer to [Plugin Configuration](plugin_configuration.md) for details.
 
 ## Developing Plugins
 
