@@ -1,5 +1,4 @@
-# !/usr/bin/env python3.5
-# -*- coding: utf-8 -*-
+# --coding:utf-8--
 # Copyright (c) 2017 Intel Corporation
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -59,8 +58,10 @@ class Options(object):
             auto_restart = self.config.getboolean(section_name, 'auto_restart')
             id = self.config.get(section_name, 'id')
             folder = self.config.get(section_name, 'folder')
+            command = self.config.get(section_name, 'command')
 
             plugin_config = {
+                'command': command,
                 'plugin_name': plugin_name,
                 'plugin_id': id,
                 'folder': folder,
@@ -71,6 +72,7 @@ class Options(object):
             self.plugin_options[plugin_name] = plugin_config
 
         self.plugin_options['manager'] = {
+            'command': None,
             'plugin_name': 'manager',
             'plugin_id': 'manager',
             'folder': 'manager',

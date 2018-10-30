@@ -1,5 +1,4 @@
-# !/usr/bin/env python3
-# -*- coding: utf-8 -*-
+# --coding:utf-8--
 # Copyright (c) 2017 Intel Corporation
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -32,10 +31,6 @@ VERSION = 1.0
 def main():
     parser = OptionParser(usage='usage: %prog [options] ...',
                           version='%%prog %s' % VERSION)
-
-    parser.add_option('-r', '--auto-reload', action='store_true',
-                      dest='autoreload',
-                      help='restart automatically when sources are modified')
 
     if os.name == 'posix':
         parser.add_option('-d', '--daemonize', action='store_true',

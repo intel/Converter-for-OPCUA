@@ -1,5 +1,4 @@
-# !/usr/bin/env python3
-# -*- coding: utf-8 -*-
+# --coding:utf-8--
 # Copyright (c) 2017 Intel Corporation
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -18,6 +17,8 @@ import glob
 import os
 import signal
 import datetime
+import time
+import threading
 
 from pyutilities.serve.process import Subprocess, ManagerSubprocess
 
@@ -30,10 +31,10 @@ class PluginManager(object):
         self.loader_py = options.get_loader_py()
         self.processes = {}
         self.manager_process = None
-        self.stop = True
+        self.stop_sig = threading.Event()
 
     def stop(self, signum, frame):
-        self.stop = True
+        self.stop_sig.set()
 
     def create_process(self, name, opt):
         if opt.get('manager', False):
@@ -45,7 +46,6 @@ class PluginManager(object):
         self.processes[name] = process
 
     def run(self):
-        self.stop = False
 
         signal.signal(signal.SIGTERM, self.stop)
         signal.signal(signal.SIGINT, self.stop)
@@ -53,33 +53,11 @@ class PluginManager(object):
         for name, opt in self.options.plugin_options.items():
             self.create_process(name, opt)
 
-        if self.manager_process:
-            self.manager_process.start()
+        for p in self.processes.values():
+            if p.config['auto_start']:
+                p.start()
 
-        while not self.stop:
-            try:
-                msg = self.Q.get(block=True, timeout=1.1)
-            except BaseException:
-                msg = None
-            if msg:
-                command = msg['action']
-                args = msg['data']
-                reply = msg.get('reply', None)
-                request_id = msg.get('request_id', None)
-
-                mname = 'do_' + command
-                method = None
-                try:
-                    method = getattr(self, mname)
-                except BaseException:
-                    pass
-                if method:
-                    ret = method(*args)
-                    if reply and request_id:
-                        reply.put({
-                            'request_id': request_id,
-                            'result': ret
-                        })
+        signal.pause()
 
     def start_plugin(self, name):
         result = {'Success': False, 'Error': False}
@@ -100,8 +78,11 @@ class PluginManager(object):
         result = {'Success': False, 'Error': False}
         process = self.processes.get(name, None)
         if process:
-            process.stop()
-            result['Success'] = 'OK'
+            if not process.is_manager_process:
+                process.stop()
+                result['Success'] = 'OK'
+            else:
+                result['Error'] = 'Manager plugin cannot be stopped'
         else:
             result['Error'] = '{0} plugin not found'.format(name)
         return result
@@ -143,6 +124,8 @@ class PluginManager(object):
                     'filename': os.path.basename(files[0]),
                     'data': s
                 }
+            elif len(files) < 1:
+                result['Error'] = 'plugin home config file not found.'
             else:
                 result['Error'] = 'plugin home has more than one file.'
         else:
@@ -166,6 +149,8 @@ class PluginManager(object):
                     with open(files[0], 'w') as f:
                         f.write(s)
                     result['Success'] = 'OK'
+                elif len(files) < 1:
+                    result['Error'] = 'plugin home config file not found.'
                 else:
                     result['Error'] = 'plugin home has more than one file.'
             else:

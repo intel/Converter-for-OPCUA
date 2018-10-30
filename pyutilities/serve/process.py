@@ -1,5 +1,4 @@
-# !/usr/bin/env python3.5
-# -*- coding: utf-8 -*-
+# --coding:utf-8--
 # Copyright (c) 2017 Intel Corporation
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -37,6 +36,10 @@ class Subprocess(object):
         self.start_time = None
         self._process = None
         self._thread = None
+        self._auto_restart_thread = None
+        self.auto_restart_evt = threading.Event()
+        self.auto_restart_count = 0
+        self.manual_stop = False
         self.is_manager_process = False
 
     def status(self):
@@ -48,6 +51,7 @@ class Subprocess(object):
         return self.state
 
     def stop(self):
+        self.manual_stop = True
         if self._process:
             self._process.terminate()
             self.state = 'STOPPED'
@@ -55,6 +59,10 @@ class Subprocess(object):
         if self._thread:
             self._thread.join()
             self._thread = None
+        if self._auto_restart_thread:
+            self._auto_restart_thread.join()
+            self._auto_restart_thread = None
+        self.clear_auto_restart()
         return self.status()
 
     def kill(self):
@@ -65,11 +73,7 @@ class Subprocess(object):
     def main(self):
         env_dir = self.manager.options.get_env_dir()
         os.chdir(env_dir)
-        cmd = [
-            'python3.5',
-            'pymodules/loader.py',
-            'pymodules/' +
-            self.config['folder']]
+        cmd = self.config['command'].split()
         self._process = subprocess.Popen(
             cmd, stdin=subprocess.PIPE, stdout=subprocess.PIPE)
         self.state = 'Started'
@@ -82,18 +86,52 @@ class Subprocess(object):
         self.state = 'STOPPED'
         self.start_time = None
         finish_evt.set()
+        self.auto_restart_evt.set()
         print('return_code = ', return_code)
 
-    def start(self):
+    def _start(self):
         finish_evt = threading.Event()
-        if not self._thread:
-            self._thread = threading.Thread(
-                target=self.run, name=self.name, args=(
-                    finish_evt,))
-            self._thread.start()
-            if not finish_evt.wait(1.5):
-                return True
+        self.auto_restart_evt.clear()
+        self._thread = threading.Thread(
+            target=self.run,
+            name=self.name,
+            args=(finish_evt,)
+        )
+        self._thread.setDaemon(True)
+        self._thread.start()
+        if not finish_evt.wait(1.5):
+            return True
         return False
+
+    def start(self):
+        self.manual_stop = False
+        if self._start():
+            self.pre_auto_restart()
+            return True
+        return False
+
+    def pre_auto_restart(self):
+        if not self.config['auto_restart']:
+            return
+
+        self._auto_restart_thread = threading.Thread(
+            target=self._restart_monitor
+        )
+        self._auto_restart_thread.setDaemon(True)
+        self._auto_restart_thread.start()
+
+    def clear_auto_restart(self):
+        self.manual_stop = False
+        self.auto_restart_count = 0
+        self.auto_restart_evt.clear()
+
+    def _restart_monitor(self):
+        while self.auto_restart_count < 10:
+            if self.auto_restart_evt.wait():
+                if self.manual_stop:
+                    break
+                self._start()
+            self.auto_restart_count += 1
 
 
 class ManagerSubprocess(Subprocess):

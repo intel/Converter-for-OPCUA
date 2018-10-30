@@ -1,4 +1,4 @@
-# -*- coding: UTF-8 -*-
+# --coding:utf-8--
 # Copyright (c) 2017 Intel Corporation
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -101,10 +101,8 @@ if __name__ == "__main__":
         result = data.read_raw_history(None, None)
         # decode history data
         for sample in result:
-            # print(sample.Value.Value)
             try:
-                payload = eval(sample.Value.Value)
-                print(payload['idx'])
+                print(sample.Value.Value)
             except TypeError:
                 break
 
