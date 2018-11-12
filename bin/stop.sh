@@ -17,7 +17,7 @@
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 # Stop OPC-UA Converter Plugins
-sudo kill -9 $(pgrep -f pymodules/loader.py) &> /dev/null
+sudo kill -9 $(pgrep -f pymodules/loader.py) > /dev/null 2>&1 
 
 # Stop OPC-UA Converter
-sudo kill -9 $(pgrep -f opcua_converter.py) &> /dev/null
+sudo kill -9 $(pgrep -f opcua_converter.py) > /dev/null 2>&1
