@@ -16,7 +16,7 @@
 
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
-PYTHON=$(which python 3)
+PYTHON=$(which python3)
 echo Using Python 3 in: $PYTHON
 
 # Start OPC-UA Converter

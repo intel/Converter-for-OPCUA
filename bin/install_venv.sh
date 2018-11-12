@@ -26,7 +26,7 @@ if [ -d "venv" ]; then
 fi
 
 if ! [ -x "$(command -v virtualenv)" ]; then
-    pip3 install virtualenv
+    sudo pip3 install virtualenv
 else
     echo $OUTPUT_PREFIX virtualenv already installed!
 fi
