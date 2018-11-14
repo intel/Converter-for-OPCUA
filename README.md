@@ -27,9 +27,16 @@ Three key blocks have been introduced to support the core architecture: (1) OPC 
 
 The software can run on commodity PC, Server or IOT gateways. Our primary development OS is **Ubuntu 16.04 LTS**. As the code is developed primarily in Python. It should be straingforward to port to other platforms. 
 
-### Building and Running Natively
+There are two ways of running Converter for OPC UA:
 
-#### Install Dependencies
+* [Running Natively](#running-natively)
+* [Running on Docker](#running-on-docker)
+  
+If you want to quickly try out or deploy in production environment, it's recommendated to run on Docker. Otherwise you can run natively as well to explore internals or develop plugins.
+
+### Running Natively
+
+* Install Dependencies
 
 The easiest way of install dependencies is to run:
 
@@ -46,8 +53,6 @@ If you prefer to manually install dependencies, please check the following helpe
 To only install python dependencies, run from home directory of the source:
 
     $ pip3 install -r requirements.txt
-
-#### Running
 
 * Configuration
 
@@ -77,7 +82,15 @@ To show the converter status, run:
 
     $ ./bin/status.sh
 
-* Running Tests
+### Running on Docker
+
+Converter and Plugins could be running in the same or separated Docker containers. The following Dockfile Guides show how to make Converter or Plugin images.
+
+* [Dockfile Converter Guide](Dockfile/converter/README.md)
+
+* [Dockfile Plugin Guide](Dockfile/plugin/README.md)
+
+## Running Tests
 
 Functional test cases are placed in "tests" directory. Some unit tests are put in "unittest" directory along with the unit source code.
 
@@ -96,14 +109,6 @@ A console-based interactive shell has been developed for debugging purpuse. Run:
 	$ python3 tests/tools/console.py
 
 Check [Console](docs/console.md) for details.
-
-## Building and Running on Docker
-
-Converter and Plugins could be running in the same or separated Docker containers. The following Dockfile Guides show how to make Converter or Plugin images.
-
-* [Dockfile Converter Guide](Dockfile/converter/README.md)
-
-* [Dockfile Plugin Guide](Dockfile/plugin/README.md)
 
 ## Examples for Developing Client
 
