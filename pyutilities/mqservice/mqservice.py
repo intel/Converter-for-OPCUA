@@ -13,9 +13,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# -----------------------------
-# Copyright by Intel
-# -----------------------------
 import json
 import sys
 import time
