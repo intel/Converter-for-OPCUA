@@ -10,8 +10,7 @@ Manufacturing operation levels are diversified as many manufacturing are still a
 
 * Extensible way to expose data to OPC UA
 * Out-of-box supporting common protocols (SCPI, MQTT, Modbus, OPC etc.) and light plugin development effort for new protocols
-* Flexible deployment model including Standalone, Edge Server+Edge Compute Node, Public Cloud+Edge Server Edge Compute Node
-* Examples to demonstrate on how to convert meta data generated from Machine Vision results to OPC UA
+* Flexible deployment model including Standalone, Edge Server+Edge Compute Node, Public Cloud+Edge Server+Edge Compute Node
 
 ## Architecture Overview
 
