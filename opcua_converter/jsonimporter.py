@@ -16,6 +16,7 @@
 Add nodes defined in JSON to address space
 Format is compliant with OPC-UA specification
 """
+
 import uuid
 from copy import copy
 
