@@ -9,7 +9,7 @@ Manufacturing operation levels are diversified as many manufacturing are still a
 ## Features
 
 * Extensible way to expose data to OPC UA
-* Out-of-box supporting common protocols (SCPI, MQTT, Modbus, OPC etc.) and light plugin development effort for new protocols
+* Out-of-box supporting common protocols (SCPI, MQTT, Modbus etc.) and light plugin development effort for new protocols
 * Flexible deployment model including Standalone, Edge Server+Edge Compute Node, Public Cloud+Edge Server+Edge Compute Node
 * Use Memory, SQLite or MongoDB as history storage
 
